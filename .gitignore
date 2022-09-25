@@ -1,3 +1,5 @@
 .idea
 .gitignore.bak
 Test/*
+.pytest_cache
+__pycache__/
