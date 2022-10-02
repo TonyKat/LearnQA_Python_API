@@ -53,7 +53,7 @@ class TestUserAgent(BaseCase):
         for key, value in user_agents.items():
             print(f"user_agents['{key}'] = {value}")
             print(f"response_as_dict['{key}'] = {response_as_dict[key]}")
-            print(f"It's bag: {False if value == response_as_dict[key] else True}")
+            print(f"It's a bug: {False if value == response_as_dict[key] else True}")
         print('--------- END: print_user_agents -----------\n')
 
         for key, value in user_agents.items():
