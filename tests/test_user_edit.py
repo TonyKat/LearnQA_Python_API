@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from lib.my_requests import MyRequests
@@ -70,6 +71,7 @@ class TestUserEdit(BaseCase):
             new_name,
             f'Wrong name of user after edit')
 
+    @allure.title("Parameterized test edit user without authorization. Data of user: {data_of_user}")
     @pytest.mark.parametrize('data_of_user', user_data)
     def test_edit_user_without_authorization(self, data_of_user):
         # Попытаемся изменить данные пользователя, будучи неавторизованными
@@ -92,6 +94,8 @@ class TestUserEdit(BaseCase):
         assert response3.content.decode('utf-8') == f"Auth token not supplied", \
             f"Response content: {response3.content.decode('utf-8')}"
 
+    @allure.title("Parameterized test edit user when login other user. Data of user: {data_of_user}")
+    @pytest.mark.xfail(condition=lambda: True, reason='this test is expecting failure')
     @pytest.mark.parametrize('data_of_user', user_data)
     def test_edit_user_when_login_other_user(self, data_of_user):
         # Попытаемся изменить данные пользователя, будучи авторизованными другим пользователем

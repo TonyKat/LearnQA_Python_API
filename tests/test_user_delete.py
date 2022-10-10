@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from lib.my_requests import MyRequests
@@ -20,6 +21,8 @@ class TestUserDelete(BaseCase):
         self.token = self.get_header(response_auth, 'x-csrf-token')
         self.user_id_from_auth_method = self.get_json_value(response_auth, 'user_id')
 
+    @allure.description("TRIVIAL: Trying delete superuser with id = 2")
+    @allure.severity(allure.severity_level.TRIVIAL)
     def test_delete_superuser(self):
         # Попытка удалить пользователя по ID 2
         id_of_superuser = '2'
@@ -33,6 +36,8 @@ class TestUserDelete(BaseCase):
                                                                     f"1, 2, 3, 4 or 5.", \
             f"Response content: {response_delete_superuser.content.decode('utf-8')}"
 
+    @allure.description("NORMAL: Trying delete new user")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_delete_new_user(self):
         # Создать пользователя, авторизоваться из-под него, удалить,
         # затем попробовать получить его данные по ID и убедиться, что пользователь действительно удален.
@@ -78,6 +83,8 @@ class TestUserDelete(BaseCase):
         assert response1_get_data_of_deleted_user.content.decode('utf-8') == f"User not found", \
             f"Response content: {response1_get_data_of_deleted_user.content.decode('utf-8')}"
 
+    @allure.description("CRITICAL: Trying delete new user")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_delete_user_when_login_other_user(self):
         # Удалить пользователя, будучи авторизованными другим пользователем
         # Создать пользователя 1
